@@ -40,4 +40,12 @@ public class GraphicsDisplay extends JPanel {
         // Шрифт для подписей осей координат
         axisFont = new Font("Serif", Font.BOLD, 15);
     }
+    // Данный метод вызывается из обработчика элемента меню "Открыть файл с графиком"
+    // главного окна приложения в случае успешной загрузки данных
+    public void showGraphics(Double[][] graphicsData) {
+        // Сохранить массив точек во внутреннем поле класса
+        this.graphicsData = graphicsData;
+        // Запросить перерисовку компонента, т.е. неявно вызвать paintComponent()
+        repaint();
+    }
 }
