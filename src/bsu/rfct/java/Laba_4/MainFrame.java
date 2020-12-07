@@ -1,7 +1,11 @@
 package bsu.rfct.java.Laba_4;
 
+import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -17,6 +21,39 @@ public class MainFrame extends JFrame {
     private GraphicsDisplay display = new GraphicsDisplay();
     // Флаг, указывающий на загруженность данных графика
     private boolean fileLoaded = false;
+    public MainFrame() {
+// Вызов конструктора предка Frame
+        super("Построение графиков функций на основе заранее подготовленных файлов");
+
+// Установка размеров окна
+        setSize(WIDTH, HEIGHT);
+        Toolkit kit = Toolkit.getDefaultToolkit();
+// Отцентрировать окно приложения на экране
+        setLocation((kit.getScreenSize().width - WIDTH) / 2,
+
+                (kit.getScreenSize().height - HEIGHT) / 2);
+// Разв?ртывание окна на весь экран
+        setExtendedState(MAXIMIZED_BOTH);
+// Создать и установить полосу меню
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+// Добавить пункт меню "Файл"
+        JMenu fileMenu = new JMenu("Файл");
+        menuBar.add(fileMenu);
+// Создать действие по открытию файла
+        Action openGraphicsAction = new AbstractAction("Открыть файл с графиком") {
+
+            public void actionPerformed(ActionEvent event) {
+                if (fileChooser == null) {
+                    fileChooser = new JFileChooser();
+                    fileChooser.setCurrentDirectory(new File("."));
+                }
+                if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
+
+                    openGraphics(fileChooser.getSelectedFile());
+
+            }
+        };
     public static void main(String[] args) {
 
     }
