@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.*;
 
-
+@SuppressWarnings("serial")
 public class GraphicsDisplay extends JPanel {
     private Double[][] graphicsData;
     // Флаговые переменные, задающие правила отображения графика
