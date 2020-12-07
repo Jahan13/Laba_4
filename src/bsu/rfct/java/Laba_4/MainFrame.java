@@ -164,11 +164,10 @@ public class GraphicsMenuListener implements MenuListener {
             showMarkersMenuItem.setEnabled(fileLoaded);
             showIntGraphicsMenuItem.setEnabled(fileLoaded);
         }
-
-
         public void menuDeselected(MenuEvent e) {
         }
         public void menuCanceled(MenuEvent e) {
         }
     }
+
 }
