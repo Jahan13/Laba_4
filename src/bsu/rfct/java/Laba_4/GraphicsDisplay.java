@@ -288,4 +288,20 @@ public class GraphicsDisplay extends JPanel {
                     bounds.getWidth() - 10), (float)(labelPos.getY() + bounds.getY()));
         }
     }
+    // Метод-помощник, осуществляющий преобразование координат.
+    protected Point2D.Double xyToPoint(double x, double y)
+    {
+        double deltaX = x - minX;
+        double deltaY = maxY - y;
+        return new Point2D.Double(deltaX*scale, deltaY*scale);
+    }
+    // Метод-помощник, возвращающий экземпляр класса Point2D.Double
+    protected Point2D.Double shiftPoint(Point2D.Double src, double deltaX, double deltaY)
+    {
+        // Инициализировать новый экземпляр точки
+        Point2D.Double dest = new Point2D.Double();
+        // Задать е? координаты как координаты существующей точки + заданные смещения
+        dest.setLocation(src.getX() + deltaX, src.getY() + deltaY);
+        return dest;
+    }
 }
