@@ -48,4 +48,16 @@ public class GraphicsDisplay extends JPanel {
         // Запросить перерисовку компонента, т.е. неявно вызвать paintComponent()
         repaint();
     }
+    // Методы-модификаторы для изменения параметров отображения графика
+    // Изменение любого параметра приводит к перерисовке области
+    public void setShowAxis(boolean showAxis) {
+        this.showAxis = showAxis;
+        repaint();
+    }
+
+    public void setShowMarkers(boolean showMarkers) {
+        this.showMarkers = showMarkers;
+        repaint();
+    }
+
 }
