@@ -1,5 +1,6 @@
 package bsu.rfct.java.Laba_4;
 
-public class MainFrame  {
+@SuppressWarnings("serial")
+public class MainFrame {
 
-    };
+}
