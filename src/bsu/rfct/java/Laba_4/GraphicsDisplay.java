@@ -1,8 +1,9 @@
 package bsu.rfct.java.Laba_4;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.font.FontRenderContext;
 import java.awt.geom.*;
-import java.awt.geom.GeneralPath;
+
 
 public class GraphicsDisplay extends JPanel {
     private Double[][] graphicsData;
@@ -167,4 +168,56 @@ public class GraphicsDisplay extends JPanel {
         // Отобразить график
         canvas.draw(graphics);
     }
+    private boolean markPoint(double y)
+    {
+        int n = (int) y;
+        if (n < 0)
+            n *= (-1);
+        while (n != 0)
+        {
+            int q = n - (n / 10) * 10;
+            if (q % 2 != 0)
+                return false;
+            n = n / 10;
+        }
+        return true;
+    }
+
+    // Отображение маркеров точек, по которым рисовался график
+    protected void paintMarkers(Graphics2D canvas) {
+        // Шаг 1 - Установить специальное перо для черчения контуров маркеров
+        canvas.setStroke(markerStroke);
+        // Выбрать красный цвета для контуров маркеров
+        canvas.setColor(Color.BLACK);
+        for(int i= 0;i<graphicsData.length;i++){
+            Boolean flag=true;
+            if(i!=0 && i!=graphicsData.length-1 &&((graphicsData[i-1][1]<graphicsData[i][1] && graphicsData[i][1]>graphicsData[i+1][1]) || (graphicsData[i-1][1]>graphicsData[i][1] && graphicsData[i][1]<graphicsData[i+1][1])))
+            {
+                canvas.setColor(Color.RED);
+                flag=false;
+            }
+            else if(markPoint(graphicsData[i][1]))
+                canvas.setColor(Color.BLUE);
+            else
+                canvas.setColor(Color.BLACK);
+
+            GeneralPath path = new GeneralPath();
+            Point2D.Double center = xyToPoint(graphicsData[i][0], graphicsData[i][1]);
+            path.moveTo(center.x, center.y + 5);
+            path.lineTo(center.x + 5, center.y);
+            path.lineTo(center.x, center.y - 5);
+            path.lineTo(center.x - 5, center.y);
+            path.lineTo(center.x, center.y + 5);
+            canvas.draw(path);
+            if (flag == false)
+            {
+                FontRenderContext context = canvas.getFontRenderContext();
+                Rectangle2D bounds = axisFont.getStringBounds("Экстремум", context);
+                Point2D.Double labelPos = xyToPoint(graphicsData[i][0], graphicsData[i][1]);
+                canvas.drawString("Экстремум", (float) labelPos.getX() + 5, (float) (labelPos.getY() - bounds.getY()));
+                canvas.drawString("("+graphicsData[i][0]+"; "+graphicsData[i][1]+")", (float) labelPos.getX() + 5, (float) (labelPos.getY() - bounds.getY()) - 20);
+            }
+        }
+    }
+
 }
